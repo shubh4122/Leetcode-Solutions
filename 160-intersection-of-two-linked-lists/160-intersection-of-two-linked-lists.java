@@ -10,36 +10,20 @@
  * }
  */
 public class Solution {
-    public ListNode getIntersectionNode(ListNode head1, ListNode head2) {
-        ListNode ptr1 = head1;
-        ListNode ptr2 = head2;
-         
-         int c1 = 0, c2 = 0;
-         
-         while(ptr1 != null) {
-             c1++;
-             ptr1 = ptr1.next;
-         }
-         while(ptr2 != null) {
-             c2++;
-             ptr2 = ptr2.next;
-         }
-         
-         int extra = Math.abs(c1-c2);
-         ListNode ptrBig = c1 > c2 ? head1 : head2;
-         ListNode ptrSmall = ptrBig == head1 ? head2 : head1;
-         
-         for(int i = 1; i <= extra; i++) {
-             ptrBig = ptrBig.next;
-         }
-         
-         while(ptrBig != null) {
-             if(ptrBig == ptrSmall) {
-                 return ptrBig;
-             }
-             ptrBig = ptrBig.next;
-             ptrSmall = ptrSmall.next;
-         }
-         return null;
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        //boundary check
+    if(headA == null || headB == null) return null;
+    
+    ListNode a = headA;
+    ListNode b = headB;
+    
+    //if a & b have different len, then we will stop the loop after second iteration
+    while( a != b){
+    	//for the end of first iteration, we just reset the pointer to the head of another linkedlist
+        a = a == null? headB : a.next;
+        b = b == null? headA : b.next;    
+    }
+    
+    return a;
     }
 }
