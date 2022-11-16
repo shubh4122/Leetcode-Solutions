@@ -34,30 +34,43 @@ class GFG {
 
 class Solution {
     // Function to detect cycle in an undirected graph.
-    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
-        boolean vis[] = new boolean[V];
+    public boolean isCycle(int n, ArrayList<ArrayList<Integer>> graph) {
+        boolean[] vis = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (!vis[i])
+//              NOTE: we return and terminate function only when cycle found.
+//              We should not return when its false. Coz it will terminate the funciton
+//              and wont check any further. Hence RETURN ONLY WHEN TRUE!!!
+                if(dfsCycleDetection(graph, vis, i, -1))
+                    return true;
+        }
+        return false;
+    }
+        private static boolean dfsCycleDetection(ArrayList<ArrayList<Integer>> graph, boolean[] vis, int node, int parent) {
+//        mark node as visited
+        vis[node] = true;
 
-        for (int i = 0; i < V; i++) {
-            if (vis[i] == false) {
-                if (checkForCycle(i, -1, vis, adj))
+//        Check for cycle
+/*          Cases:
+                1. node n NOT VISITED
+                    - call cycleCheck for this n and if cycle found return true.
+
+                2. node n VISITED earlier
+                    i. if n == parent, not cycle, hence return false
+                    ii. if n != parent, cycle there. return true
+ */
+        for (int n : graph.get(node)) {
+            if (!vis[n]) {
+                if (dfsCycleDetection(graph, vis, n, node))
                     return true;
             }
-        }
-
-        return false;
-    }
-    
-    public boolean checkForCycle(int node, int parent, boolean vis[], ArrayList < ArrayList 
-    < Integer >> adj) {
-        vis[node] = true;
-        for (Integer it: adj.get(node)) {
-            if (vis[it] == false) {
-                if (checkForCycle(it, node, vis, adj) == true)
-                    return true;
-            } else if (it != parent)
+//          it comes here, when n has already been visited earlier
+            else if (n != parent)
                 return true;
+//          DONT return any thing when n==PARENT. Coz it will terminate the call
+//          Just continue checking when this condition strikes.
         }
-
         return false;
     }
+
 }
