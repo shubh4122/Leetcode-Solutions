@@ -46,13 +46,12 @@ class Solution
 //      1 : Color 2
         int[] color = new int[n];
         Queue<Integer> q = new ArrayDeque<>();
-        int newColor = 1;
 
         for (int node = 0; node < n; node++) {
             if (color[node] == 0) //not visited
             {
                 q.add(node);
-                color[node] = newColor++;
+                color[node] = 1;
 
                 while (!q.isEmpty()) {
                     int temp = q.remove();
