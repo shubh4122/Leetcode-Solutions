@@ -39,35 +39,40 @@ class Solution
 {
     public boolean isBipartite(int n, ArrayList<ArrayList<Integer>> graph)
     {
-        // Code here
         //      Here thing to NOTE is, we use color arr instead of Visited. Color arr keeps track of both color and visited
 //      0 : Not visited,
 //     -1 : Color 1,
 //      1 : Color 2
         int[] color = new int[n];
-        Queue<Integer> q = new ArrayDeque<>();
 
         for (int node = 0; node < n; node++) {
-            if (color[node] == 0) //not visited
-            {
-                q.add(node);
-                color[node] = 1;
-
-                while (!q.isEmpty()) {
-                    int temp = q.remove();
-                    int previousNode = temp;
-                    for (int adjNode : graph.get(temp)) {
-                        if (color[adjNode] == 0) { //not visited
-                            q.add(adjNode);
-                            color[adjNode] = -(color[previousNode]);
-                        }
-                        
-                        if (color[temp] == color[adjNode])
-                            return false;
-                    }
-                }
+            if (color[node] == 0 ){//not visited
+                if (colorGraphDFS(graph, color, node, -1) == false)
+                    return false;
             }
         }
         return true;
+    }
+    
+    public static boolean colorGraphDFS(ArrayList<ArrayList<Integer>> graph, int[] color, int node, int parent) {
+        if (color[node] == 0) { //not visited
+            if (parent == -1)
+                color[node] = 1;
+            else
+                color[node] = -color[parent];
+
+            for (int adjNode : graph.get(node)) {
+                if(!colorGraphDFS(graph, color, adjNode, node))
+                    return false;
+            }
+        }
+        
+        else {//colored
+            if (color[parent] == color[node])
+                return false;
+        }
+        
+        return true;
+        
     }
 }
