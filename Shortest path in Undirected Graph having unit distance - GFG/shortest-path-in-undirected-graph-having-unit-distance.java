@@ -69,7 +69,7 @@ class Solution {
 //              Check if the dist to adjNode from src is less than its stored Dist, then replace. Else ignore
 //              dist[parent] is dist of parent from src
                 int newDist = dist[parent] + 1;
-                if (newDist < dist[adjNode]){
+                if (newDist <= dist[adjNode]){
                     dist[adjNode] = newDist;
 //                  only that adjNode must enter queue, whose new dist < its current dist
                     q.add(adjNode);
