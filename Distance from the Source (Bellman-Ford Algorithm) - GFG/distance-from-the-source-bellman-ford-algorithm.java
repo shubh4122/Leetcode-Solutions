@@ -64,11 +64,11 @@ class Solution {
 */
 
         for (int i = 0; i < n - 1; i++) {
-            relax(edges, dist);
+            relax(edges, dist, false);
         }
 
         //This is nth call to relax. If now it enters the below IF in Relax. where dist changes. It will tell me, it changed.
-        boolean isNegCycle = relax(edges, dist);
+        boolean isNegCycle = relax(edges, dist, true);
         if (isNegCycle)
             return new int[]{-1};
         
@@ -76,9 +76,7 @@ class Solution {
     }
     
     
-    public static boolean relax(ArrayList<ArrayList<Integer>> edges, int[] dist) {
-        boolean distArrChanged = false;
-
+    private static boolean relax(ArrayList<ArrayList<Integer>> edges, int[] dist, boolean isNthCall) {
         //edge ->  (u, v, w).  u: parent. v : adjNode. w : weight
         for (ArrayList<Integer> edge : edges) {
             int u = edge.get(0);
@@ -86,11 +84,13 @@ class Solution {
             int w = edge.get(2);
 
             int newDist = dist[u] + w;
-            if (newDist < dist[v]) {
+            if (dist[u] != 100000000 && newDist < dist[v]) { // for nodes which havent been reached yet. we wont relax them.
                 dist[v] = newDist;
-                distArrChanged = true;
+                //this is solely done for the nth iteration, finding presence of negative cycle.
+                if (isNthCall)
+                    return true;// true coz, this is Nth call, and it entered here which means DIST[] is changed.
             }
         }
-        return distArrChanged;
+        return false;//no negative cycle
     }
 }
