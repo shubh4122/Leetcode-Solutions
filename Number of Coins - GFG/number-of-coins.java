@@ -29,36 +29,35 @@ class Solution{
 	public int minCoins(int coins[], int n, int sum) 
 	{ 
 	    // Your code goes here
-        int[][] dpMem = new int[n+1][sum+1];
-        for (int i = 0; i < dpMem.length; i++)
-            Arrays.fill(dpMem[i], -1);
+        int ans = coinChange2Tabulation(coins, n, sum);
             
-        int ans = coinChange2(coins, n, sum, dpMem);
-            
-        return ans == Integer.MAX_VALUE -1 ? -1 : ans;
+        return ans >= Integer.MAX_VALUE -1 ? -1 : ans;
 	} 
 	
-	public static int coinChange2(int[] coins, int n, int sum, int[][] dpMem) {
-        //HYPOTHESIS of this method : --> V IMP
-        //  It returns the Min Number of coins req to give sum.
+	public static int coinChange2Tabulation(int[] coins, int n, int sum) {
+        int[][] dp = new int[n+1][sum+1];
+        //Initialization - BC
+        Arrays.fill(dp[0], Integer.MAX_VALUE - 1);
+        for (int i = 0; i < n + 1; i++)
+            dp[i][0] = 0;
+        //CAN ALSO traverse whole arr and Fill 3rd BC val too, but it works without that too. so leaving it
+//        for (int j = 1; j < sum + 1; j++) {
+//            if (j % coins[0] == 0)    dp[1][j] = j / coins[0];
+//            else                      dp[1][j] = Integer.MAX_VALUE - 1;
+//        }
 
-        //BC
-        //???? see when sum = 0 and n=0 then what to return?
-        if (n == 0 && sum != 0) return Integer.MAX_VALUE - 1; //because when no possible way, then num of coins UNDEFINED
-        if (sum == 0)   return 0;
-        // seee if any other bc?
-        // if (n == 1) return sum % coins[n-1] == 0 ? sum/coins[n-1] : Integer.MAX_VALUE -1;
+        //MAIN CODE
+        for (int i = 1; i < n + 1; i++) {// i = 2 when 3rd BC is used
+            for (int j = 1; j < sum + 1; j++) {
+                if (coins[i-1] <= j)
+                    dp[i][j] = Math.min(1+dp[i][j - coins[i-1]], dp[i-1][j]);
 
-        //Memoization
-        if (dpMem[n][sum] != -1)
-            return dpMem[n][sum];
+                else
+                    dp[i][j] = dp[i-1][j];
+            }
+        }
 
-        //Choice diag
-        if (coins[n-1] <= sum)
-            return dpMem[n][sum] = Math.min(1+coinChange2(coins, n, sum - coins[n-1], dpMem), coinChange2(coins, n-1, sum, dpMem));
-        else
-            return dpMem[n][sum] = coinChange2(coins, n-1, sum, dpMem);
-
-
+        return dp[n][sum];
     }
+    
 }
