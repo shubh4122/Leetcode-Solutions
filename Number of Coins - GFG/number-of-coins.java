@@ -47,7 +47,7 @@ class Solution{
         if (n == 0 && sum != 0) return Integer.MAX_VALUE - 1; //because when no possible way, then num of coins UNDEFINED
         if (sum == 0)   return 0;
         // seee if any other bc?
-        // if (n == 1) return sum % coins[n-1] == 0 ? sum/coins[n-1] : Integer.MAX_VALUE -1;
+        if (n == 1) return sum % coins[n-1] == 0 ? sum/coins[n-1] : Integer.MAX_VALUE -1;
 
         //Memoization
         if (dpMem[n][sum] != -1)
