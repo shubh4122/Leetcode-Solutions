@@ -30,29 +30,28 @@ class Solution
     static int lcs(int lx, int ly, String x, String y)
     {
         // your code here
-        
-        int[][] dpMem = new int[lx+1][ly+1];
-        for (int i = 0; i < dpMem.length; i++)
-            Arrays.fill(dpMem[i], -1);
-
-        return lcs1(lx, ly, x, y, dpMem);
+        return lcs1(lx, ly, x, y);
     }
     
-        public static int lcs1(int lx, int ly, String x, String y, int[][] dpMem) {
-//        Hypothesis --> lcs returns the len of common subsequence between
-//                       2 given strings. And we ensure it is the longest.
-        //BC:
-        if (lx == 0 || ly == 0)
-            return 0; //0 len when any one str gets finished. coz then there can be no common subseq
+    public static int lcs1(int lx, int ly, String x, String y) {
+//table
+        int[][] dp = new int[lx+1][ly+1];
 
-        //Memoization
-        if (dpMem[lx][ly] != -1)
-            return dpMem[lx][ly];
+        //Initialization
+        Arrays.fill(dp[0], 0);
+        for (int i = 0; i < lx + 1; i++)
+            dp[i][0] = 0;
+
+        //Choice Diagram
+        for (int i = 1; i < lx + 1; i++) {
+            for (int j = 1; j < ly + 1; j++) {
+                if (x.charAt(i - 1) == y.charAt(j - 1))
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                else //last char doesn't matches
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+            }
+        }
         
-        //CHOICE DIAGRAM
-        if (x.charAt(lx - 1) == y.charAt(ly - 1))
-            return dpMem[lx][ly] = 1 + lcs1(lx - 1, ly - 1, x, y, dpMem);
-        else //last char doesn't matches
-            return dpMem[lx][ly] = Math.max(lcs1(lx,ly - 1, x, y, dpMem), lcs1(lx - 1,ly, x, y, dpMem));
+        return dp[lx][ly];
     }
 }
