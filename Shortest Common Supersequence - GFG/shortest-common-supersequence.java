@@ -43,59 +43,33 @@ class Solution
     public static int shortestCommonSupersequence(String x,String y,int lx,int ly)
     {
         //Your code here
-        String[][] dpMems = new String[lx+1][ly+1];
+        int[][] dpMems = new int[lx+1][ly+1];
         
         for (int i = 0; i < dpMems.length; i++)
-            Arrays.fill(dpMems[i], "-1");
+            Arrays.fill(dpMems[i], -1);
 
-        return scs(lx, ly, x, y, dpMems).length();
-    }
-    
-    public static String scs(int lx, int ly, String x, String y, String[][] dpMem) {
-        //Step 1: Merge Both
-        StringBuilder superSeq = new StringBuilder(x + y);
-
-        //Step 2: Find lcs of x, y
-        StringBuilder lcs = new StringBuilder( lcsPrintMy(lx, ly, x, y, dpMem) );
-
-        //Step 3: Remove LCS from superSeq --> This will be scs
-        int i = 0;
-        while (lcs.length() > 0) {
-            if (superSeq.charAt(i) == lcs.charAt(0)) {
-                superSeq.deleteCharAt(i);
-                lcs.deleteCharAt(0);
-                i--;
-            }
-            i++;
-        }
-
-        //Step 4: By now we have Shortest common SuperSeq, RETURN it
-        return superSeq.toString();
+        return x.length() + y.length() - lcs(lx, ly, x, y, dpMems);
     }
 
-    
-    public static String lcsPrintMy(int lx, int ly, String x, String y, String[][] dpMems) {
-        //NOTE: I DON'T KNOW IF THIS IS CORRECT. THIS IS MY SOLUTION AND IT WORKED FOR MANY TEST CASES. BUT CANT
-        //CONFIDENTLY SAY IT WILL ALWAYS WORK. COZ THERE IS NO QUES FOR IT
-        //https://www.hackerrank.com/challenges/dynamic-programming-classics-the-longest-common-subsequence/problem?isFullScreen=false
-        //IT WORKS!!!!!! SO ITS A CORRECT SOLUTION!!!!!!!
 
+    public static int lcs(int lx, int ly, String x, String y, int[][] dpMem) {
+//        Hypothesis --> lcs returns the len of common subsequence between
+//                       2 given strings. And we ensure it is the longest.
         //BC:
         if (lx == 0 || ly == 0)
-            return ""; //0 len when any one str gets finished. coz then there can be no common subseq
+            return 0; //0 len when any one str gets finished. coz then there can be no common subseq
 
         //Memoization
-        if (!dpMems[lx][ly].equals("-1"))
-            return dpMems[lx][ly];
+        if (dpMem[lx][ly] != -1)
+            return dpMem[lx][ly];
 
         //CHOICE DIAGRAM
         if (x.charAt(lx - 1) == y.charAt(ly - 1))
-            return dpMems[lx][ly] = lcsPrintMy(lx - 1, ly - 1, x, y, dpMems) + x.charAt(lx-1);
-        else {//last char doesn't matches
-            String a = lcsPrintMy(lx, ly - 1, x, y, dpMems);
-            String b = lcsPrintMy(lx - 1, ly, x, y, dpMems);
-            return dpMems[lx][ly] = a.length() > b.length() ? a : b;
-        }
+            return dpMem[lx][ly] = 1 + lcs(lx - 1, ly - 1, x, y, dpMem);
+        else //last char doesn't matches
+            return dpMem[lx][ly] = Math.max(lcs(lx,ly - 1, x, y, dpMem), lcs(lx - 1,ly, x, y, dpMem));
 
+//        https://leetcode.com/problems/longest-common-subsequence/
+//        https://practice.geeksforgeeks.org/problems/longest-common-subsequence-1587115620/1
     }
 }
