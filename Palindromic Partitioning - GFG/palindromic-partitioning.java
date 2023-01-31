@@ -41,8 +41,8 @@ class Solution{
             return 0; // 0 partitions
 
         //this as a whole is redundant bc??!!!
-        if (i >= j) //= is optional. coz that base case will be dealt by above isPal condition
-            return 0;
+        // if (i >= j) //= is optional. coz that base case will be dealt by above isPal condition
+        //     return 0;
 
         //Memoization
         if (dp[i][j] != -1)
