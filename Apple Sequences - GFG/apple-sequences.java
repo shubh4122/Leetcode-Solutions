@@ -48,7 +48,6 @@ class Solution{
                 end++;
 
                 if (s.charAt(i) == 'O') {
-//                    posO.add(i);
                     mCopy--;//O is entered in window on cost of M
                 }
 
@@ -57,8 +56,6 @@ class Solution{
             else if (s.charAt(start) == 'O' && s.charAt(i) == 'O') {
                 //eliminating start O and putting in current O. (MOVING WINDOW)
                 start++;
-//                posO.add(i);
-//                posO.remove(0);
                 end++;
             }
             else {
@@ -70,7 +67,6 @@ class Solution{
                     start++;
                 }
                 while (s.charAt(start-1) != 'O');
-//                start = end - m + 2;
                 end++;
             }
         }
