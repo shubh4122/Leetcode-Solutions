@@ -63,44 +63,31 @@ class Solution
     //Function to return list containing vertices in Topological order. 
     static int[] topoSort(int n, ArrayList<ArrayList<Integer>> graph) 
     {
-        //      Data structures Required
-        int[] indegree = new int[n];
-        int[] ans = new int[n];
-        Queue<Integer> q = new ArrayDeque<>();
+        // add your code here
+        boolean vis[] = new boolean[n];
+        // ArrayList<Integer> topo = new ArrayList<>(n);
+        Stack<Integer> topo = new Stack<>();
 
-//      Calculating INDEGREE
         for (int node = 0; node < n; node++) {
+            if (!vis[node])
+                topoDFS(graph, node, vis, topo);
+        }
+        int[] topoArr = new int[n];
+        // Collections.reverse(topo);
+        for (int i = 0; i < n; i++) {
+            topoArr[i] = topo.pop();
+        }
+
+        return topoArr;
+    }
+    
+    public static void topoDFS(ArrayList<ArrayList<Integer>> graph, int node, boolean[] vis, Stack<Integer> topo) {
+        if (!vis[node]) {
+            vis[node] = true;
             for (int adjNode : graph.get(node)) {
-                indegree[adjNode]++;
+                topoDFS(graph, adjNode, vis, topo);
             }
+            topo.push(node);
         }
-
-//      whosever in-deg is 0, put them in Queue
-        for (int i = 0; i < indegree.length; i++) {
-            if (indegree[i] == 0)
-                q.add(i);
-        }
-
-//      Starting the BFS now.
-        int i = 0;
-        while (!q.isEmpty()) {
-//          pop the front of Queue. and store it.
-            int temp = q.remove();
-            ans[i] = temp;
-            i++;
-
-//          Traverse all its Adj nodes
-            for (int adjNode : graph.get(temp)) {
-                if (indegree[adjNode] != 0) {
-                    indegree[adjNode]--;
-                    if (indegree[adjNode] == 0)
-                        q.add(adjNode);
-                }
-            }
-        }
-
-        return ans;
-
-
     }
 }
