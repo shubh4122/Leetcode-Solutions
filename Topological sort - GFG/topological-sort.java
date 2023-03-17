@@ -63,31 +63,54 @@ class Solution
     //Function to return list containing vertices in Topological order. 
     static int[] topoSort(int n, ArrayList<ArrayList<Integer>> graph) 
     {
-        // add your code here
         boolean vis[] = new boolean[n];
-        // ArrayList<Integer> topo = new ArrayList<>(n);
-        Stack<Integer> topo = new Stack<>();
+        ArrayList<Integer> topo = new ArrayList<>(n);
 
-        for (int node = 0; node < n; node++) {
-            if (!vis[node])
-                topoDFS(graph, node, vis, topo);
-        }
+        //for only disconnected components
+        // for (int node = 0; node < n; node++) {
+        //     if (!vis[node]) {
+
+                //MAIN CODE
+                //STEP 1 : calc indegree
+                int[] indegree = new int[n];
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < graph.get(i).size(); j++) {//adj node to parent 'i'
+                        indegree[graph.get(i).get(j)]++;
+                    }
+                }
+
+                Queue<Integer> q = new LinkedList<>();
+
+                //STEP 2 : insert all nodes with indeg 0 to q
+                for (int i = 0; i < n; i++)
+                    if (indegree[i] == 0)
+                        q.add(i);
+
+                //STEP 3 : bfs code
+
+                while (!q.isEmpty()) {
+                    int parent = q.remove();
+                    topo.add(parent);
+
+                    for (int adjNode : graph.get(parent)) {
+                        if (indegree[adjNode] > 0) {
+                            indegree[adjNode]--;
+                            if (indegree[adjNode] == 0)
+                                q.add(adjNode);
+                        }
+                    }
+                }
+        //     }
+        // }
+
+        //returning answer
         int[] topoArr = new int[n];
-        // Collections.reverse(topo);
+
         for (int i = 0; i < n; i++) {
-            topoArr[i] = topo.pop();
+            topoArr[i] = topo.get(i);
         }
 
         return topoArr;
     }
-    
-    public static void topoDFS(ArrayList<ArrayList<Integer>> graph, int node, boolean[] vis, Stack<Integer> topo) {
-        if (!vis[node]) {
-            vis[node] = true;
-            for (int adjNode : graph.get(node)) {
-                topoDFS(graph, adjNode, vis, topo);
-            }
-            topo.push(node);
-        }
-    }
+   
 }
