@@ -43,10 +43,10 @@ class Solution
         // Code here 
         int n = matrix.length;
 
-            for (int via = 0; via < n; via++) {
-        for (int src = 0; src < n; src++) {
+        for (int via = 0; via < n; via++) {
+            for (int src = 0; src < n; src++) {
                 for (int dest = 0; dest < n; dest++) {
-                    
+
                     if (matrix[via][dest] == -1)
                         continue;
                     else if (matrix[src][via] == -1)
