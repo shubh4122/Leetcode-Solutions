@@ -61,42 +61,27 @@ class Solution
     //from the source vertex S.
     static int[] dijkstra(int n, ArrayList<ArrayList<ArrayList<Integer>>> graph, int src)
     {
-        // Write your code here
-        //Create Priority Queue
-        PriorityQueue<Pair> pq = new PriorityQueue<>(new Pair()); // new Pair() is comparator given to pq to use.
+        PriorityQueue<Pair> q = new PriorityQueue(new Pair());//this is Comparator
         int[] dist = new int[n];
         Arrays.fill(dist, Integer.MAX_VALUE);
 
-        //add src to PQ
-        pq.add(new Pair(src, 0));
+        q.add(new Pair(src, 0));
         dist[src] = 0;
 
-/*
-        |--------------------------------------------------------|
-        |        ******** FINDING SHORTEST PATH ********         |
-        |                                                        |
-        |      Do below steps: UNTIL pq is empty                 |
-        |       1. Pop the node(with least dist). Property of pq |
-        |       2. Visit all adj nodes of Popped node            |
-        |       3. Calc newDist, if its Lower:                   |
-        |               a. Update it in dist[]                   |
-        |               b. Push this node Pair in PQ             |
-        |--------------------------------------------------------|
-*/
-        while (!pq.isEmpty()) {
-            Pair topNode = pq.remove();
-            int leastDistNode = topNode.node;
-            int leastDist = topNode.weight;
+        while (!q.isEmpty()) {
+            Pair p = q.remove();
+            int node = p.first;
+            int wt = p.second;
 
-            for (int i = 0; i < graph.get(leastDistNode).size(); i++) {
-                int adjNode = graph.get(leastDistNode).get(i).get(0);
-                int adjWeight = graph.get(leastDistNode).get(i).get(1);
-
-                int newDist = dist[leastDistNode] + adjWeight;
-                if (newDist < dist[adjNode]) {
+            for (ArrayList<Integer> adj : graph.get(node)) {
+                int adjNode = adj.get(0);
+                int adjWt = adj.get(1);
+                
+                //Relaxation
+                int newDist = dist[node] + adjWt;
+                if (newDist < dist[adjNode]){
                     dist[adjNode] = newDist;
-                    //node pushed to PQ with new updated DIST.
-                    pq.add(new Pair(adjNode, dist[adjNode]));
+                    q.add(new Pair(adjNode, adjWt));
                 }
             }
         }
@@ -104,20 +89,19 @@ class Solution
 
     }
     
-    static class Pair implements Comparator<Pair>{
-        int node, weight;
-        Pair(){}
+    public static class Pair implements Comparator<Pair> {
+        int first, second;
+        public Pair(){}
 
-        Pair(int node, int weight) {
-            this.node = node;
-            this.weight = weight;
+        public Pair(int first, int second){
+            this.first = first;
+            this.second = second;
         }
 
-    @Override
-    public int compare(Pair p1, Pair p2) {
-        //quick way to implement. For ascending order. See other way too.
-        return p1.weight - p2.weight;
+        @Override
+        public int compare(Pair p1, Pair p2) {
+            return p1.second - p2.second;//ascending order
+        }
     }
-}
 }
 
