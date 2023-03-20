@@ -51,46 +51,47 @@ class DriverClass {
 *   V: number of vertices
 */
 class Solution {
-    static int[] bellman_ford(int n, ArrayList<ArrayList<Integer>> edges, int src) {
+    static int[] bellman_ford(int V, ArrayList<ArrayList<Integer>> edges, int S) {
         // Write your code here
-        int[] dist = new int[n];
+        int[] dist = new int[V];
         Arrays.fill(dist, 100000000);
-        dist[src] = 0;
+        dist[S] = 0;
 
-/*
-        |----------------------------------------------|
-        |               Relax n-1 times                |
-        |----------------------------------------------|
-*/
+        for (int i = 0; i < V - 1; i++) {
+            //relax v-1 times over all edges
+            for (int j = 0; j < edges.size(); j++) {
+                int u = edges.get(j).get(0);
+                int v = edges.get(j).get(1);
+                int wt = edges.get(j).get(2);
 
-        for (int i = 0; i < n - 1; i++) {
-            relax(edges, dist, false);
+                relax(dist, u, v, wt, false);
+            }
         }
 
-        //This is nth call to relax. If now it enters the below IF in Relax. where dist changes. It will tell me, it changed.
-        boolean isNegCycle = relax(edges, dist, true);
-        if (isNegCycle)
-            return new int[]{-1};
+        //if there had been no -ve cycle the dist[] will remain unchanged in nTH iteration.
+        //if dist[] changes it means there is -ve cycle
+
+        for (int i = 0; i < edges.size(); i++) {
+            int u = edges.get(i).get(0);
+            int v = edges.get(i).get(1);
+            int wt = edges.get(i).get(2);
+
+            if (relax(dist, u, v, wt, true))//cycle found
+                return new int[]{-1};
+        }
         
         return dist;
     }
     
-    
-    private static boolean relax(ArrayList<ArrayList<Integer>> edges, int[] dist, boolean isNthCall) {
-        //edge ->  (u, v, w).  u: parent. v : adjNode. w : weight
-        for (ArrayList<Integer> edge : edges) {
-            int u = edge.get(0);
-            int v = edge.get(1);
-            int w = edge.get(2);
-
-            int newDist = dist[u] + w;
-            if (dist[u] != 100000000 && newDist < dist[v]) { // for nodes which havent been reached yet. we wont relax them.
+    public static boolean relax(int[] dist, int u, int v, int wt, boolean isNthCall) {
+        if (dist[u] != 100000000) {
+            int newDist = dist[u] + wt;
+            if (newDist < dist[v]) {
                 dist[v] = newDist;
-                //this is solely done for the nth iteration, finding presence of negative cycle.
                 if (isNthCall)
-                    return true;// true coz, this is Nth call, and it entered here which means DIST[] is changed.
+                    return true;
             }
         }
-        return false;//no negative cycle
+        return false;
     }
 }
