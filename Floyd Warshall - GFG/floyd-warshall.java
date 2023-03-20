@@ -41,23 +41,20 @@ class Solution
     public void shortest_distance(int[][] matrix)
     {
         // Code here 
-        //The initial Matrix is already given.
-        for (int via = 0; via < matrix.length; via++) {
-            for (int src = 0; src < matrix.length; src++) {
-                for (int dest = 0; dest < matrix.length; dest++) {
-                    //Here -1 Denotes INFINITY. Or NO EDGE between nodes.
-                    if (matrix[src][via] == -1)
-                        break;
-                    else if (matrix[via][dest] == -1)
-                        continue;
-                    else {
-                        int newDist = matrix[src][via] + matrix[via][dest];
-                        if (matrix[src][dest] == -1)
-                            matrix[src][dest] = newDist;
-                        else
-                            matrix[src][dest] = Math.min(matrix[src][dest], newDist);
-                    }
+        int n = matrix.length;
 
+            for (int via = 0; via < n; via++) {
+        for (int src = 0; src < n; src++) {
+                for (int dest = 0; dest < n; dest++) {
+                    
+                    if (matrix[via][dest] == -1)
+                        continue;
+                    else if (matrix[src][via] == -1)
+                        break;
+
+                    int newDist = matrix[src][via] + matrix[via][dest];
+                    if (newDist < matrix[src][dest] || matrix[src][dest] == -1)
+                        matrix[src][dest] = newDist;
                 }
             }
         }
