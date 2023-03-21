@@ -42,20 +42,25 @@ class Solution{
         boolean[] vis = new boolean[n];
 
         q.add(new Pair(0, 0));//any random node pushed
-        // vis[0] = true;
 
         while (!q.isEmpty()) {
             Pair pop = q.remove();
             int node = pop.first;
             int wt = pop.second;
-            
-            if (vis[node])  continue;
 
+
+            //this is because there may be multiple occurences of a node in PQ
+            //so, once the smallest weight pair of that node is visited, all others ignored
+            //using this if.
+            if (vis[node])  continue;
             //taking the shortest edge
             mstWt += wt;
-            vis[node] = true;
+            vis[node] = true;//mark nodes visited only when they are popped and included in MST
 
             for (Pair adj : graph.get(node)) {
+                //When nodes are entered here, it doesnt mean it is VISITED.
+                //only when we pop them, they are marked visited.
+                //Hence same node with different weights maybe present in PQ
                 if (!vis[adj.first]) {
                     q.add(adj);
                 }
