@@ -34,84 +34,63 @@ public class Main{
 // User function Template for Java
 
 class Solution{
-	static int spanningTree(int V, int E, int edges[][]){
+	static int spanningTree(int n, int m, int edges[][]){
 	    // Code Here. 
-	    
-	    //Kruskal
-	     Arrays.sort(edges, new Comparator<int[]>() {//can use lambda function toooo!!
-            @Override
-            public int compare(int[] first, int[] second) {
-                if (first[2] > second[2]) //[2] is weight
-                    return 1; //asc order
+	    ArrayList<ArrayList<Pair>> graph = edgeToListWeighted(edges, n, m);
+        int mstWt = 0;
+        PriorityQueue<Pair> q = new PriorityQueue<>(new Pair());//comparator
+        boolean[] vis = new boolean[n];
 
-                else if (first[2] < second[2])
-                    return -1;
+        q.add(new Pair(0, 0));//any random node pushed
+        // vis[0] = true;
 
-                return 0;
-            }
-        });
+        while (!q.isEmpty()) {
+            Pair pop = q.remove();
+            int node = pop.first;
+            int wt = pop.second;
+            
+            if (vis[node])  continue;
 
-        int mstSum = 0;
-        DisjointSet ds = new DisjointSet(V);
-        for (int[] edge : edges) {
-            if (ds.findUltParent(edge[0]) != ds.findUltParent(edge[1])) {
-                ds.unionByRank(edge[0], edge[1]);
-                mstSum += edge[2];
+            //taking the shortest edge
+            mstWt += wt;
+            vis[node] = true;
+
+            for (Pair adj : graph.get(node)) {
+                if (!vis[adj.first]) {
+                    q.add(adj);
+                }
             }
         }
-        return mstSum;
+        return mstWt;
 	}
-}
-
-class DisjointSet {
-    ArrayList<Integer> rank = new ArrayList<>();
-    ArrayList<Integer> parent = new ArrayList<>();
-
-    DisjointSet(int numOfNodes) {
-        for (int i = 0; i < numOfNodes + 1; i++) { // +1 to support 1 based indexing too
-            rank.add(0); //Default values
-            parent.add(i);
-        }
-    }
-
-    public int findUltParent(int node) {//finding ultimate parent
-        if (node == parent.get(node))
-            return node;
-
-        int ulp = findUltParent(parent.get(node));
-        //it REPLACES val at index node with val ULP
-        parent.set(node, ulp);
-        return parent.get(node);
-    }
-
-    public void unionByRank(int u, int v) {
-/*
-         ----------------------------------------------
-        |                 Union Algo                   |
-        |     1. Find ult Parent of u,v (pu, pv)       |
-        |     2. Find RANK of pu, pv                   |
-        |     3. Attach smaller rank ultimate parent   |
-        |        to larger Rank ultimate Par           |
-         ----------------------------------------------
- */
-        int pu = findUltParent(u);
-        int pv = findUltParent(v);
-
-        //if pu and pv of both same, then no need to union them
-        if (pu == pv)   return;
-
-        if (rank.get(pu) < rank.get(pv)) {
-            parent.set(pu, pv); // Make pv as Parent of pu, That is attach pu to pv.
-            //Rank of pv doesnt change coz it was already higher. so it wouldnt cause any change
-        }
-        else if (rank.get(pu) > rank.get(pv)) {
-            parent.set(pv, pu);
-        }
-        else {//when both rank equal, then join any to any, and increase RANK of final UltPar
-            parent.set(pv, pu);
-            rank.set(pu, rank.get(pv)+1);//or rank[pu] + 1 will be same
-        }
-    }
-}	
 	
+	
+    public static ArrayList<ArrayList<Pair>> edgeToListWeighted(int[][] edges, int n, int m) {
+        ArrayList<ArrayList<Pair>> graph = new ArrayList<>();
+        for (int i = 0; i <= n; i++) {//<=n because 1 based indexing
+            graph.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < m; i++) {
+            graph.get(edges[i][0]).add(new Pair(edges[i][1], edges[i][2]));
+            graph.get(edges[i][1]).add(new Pair(edges[i][0], edges[i][2]));
+        }
+
+        return graph;
+    }
     
+     public static class Pair implements Comparator<Pair> {
+        int first, second;
+        public Pair(){}
+
+        public Pair(int first, int second){
+            this.first = first;
+            this.second = second;
+        }
+
+        @Override
+        public int compare(Pair p1, Pair p2) {
+            return p1.second - p2.second;//ascending order
+        }
+    }
+}
