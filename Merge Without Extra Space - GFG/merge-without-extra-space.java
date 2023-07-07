@@ -56,9 +56,11 @@ class Solution
         while(p1 >=0 && p2 < m) {
             if(arr1[p1] > arr2[p2]) {
                 swap(arr1, arr2, p1, p2);
+                p1--;
+                p2++;
             }
-            p1--;
-            p2++;
+            else
+                break;
         }
         
         Arrays.sort(arr1);
