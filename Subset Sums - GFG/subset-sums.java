@@ -36,23 +36,21 @@ class Solution{
     ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
         // code here
         ArrayList<Integer> ans = new ArrayList<>();
-        subsetSum(arr, 0, 0, ans);
+        helper(arr, 0, 0, ans);
         return ans;
     }
     
-    public static void subsetSum(ArrayList<Integer> ip, int index, int opSum, ArrayList<Integer> ans) {
-        //Ip/Op method. - Recursive tree
-        //BC
-        if (index == ip.size()) {//that pointer reached end. input list finished
-            ans.add(opSum);
+    void helper(ArrayList<Integer> arr, int i, int sum, ArrayList<Integer> ans) {
+        if(i == arr.size()){
+            ans.add(sum);
             return;
         }
-
-        //not take
-        subsetSum(ip, index + 1, opSum, ans);
-
+        
         //take
-        subsetSum(ip, index + 1, opSum + ip.get(index), ans);
+        helper(arr, i+1, sum+arr.get(i), ans);
+        
+        
+        //not take
+        helper(arr, i+1, sum, ans);
     }
-
 }
