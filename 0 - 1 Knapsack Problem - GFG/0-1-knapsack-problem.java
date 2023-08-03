@@ -49,33 +49,21 @@ class gfg
 class Solution 
 { 
     //Function to return max value that can be put in knapsack of capacity W.
-    static int knapSack(int w, int wt[], int val[], int n)
-    {
-        //dp[w+1][n]
-        int[][] dp = new int[w+1][n];
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
+     static int knapSack(int w, int wt[], int val[], int n){
+        int[][] dp = new int[n+1][w+1];
 
-        return ks(w, wt, val, n, 0, dp);
-    }
-
-    private static int ks(int w, int[] wt, int[] val, int n, int idx, int[][] dp) {
-        if (w==0 || idx == n)
-            return 0;//0 val can be obtained from ks
-
-        //Memoization
-        if (dp[w][idx]!=-1)
-            return dp[w][idx];
         
-        if (w-wt[idx] >= 0){
-            int take = val[idx] + ks(w-wt[idx], wt, val, n, idx+1, dp);
-            int notTake = ks(w, wt, val, n, idx+1, dp);
-            return dp[w][idx] = Math.max(take, notTake);
+        //i-> w, j -> n
+        for (int j = 1; j < n+1; j++) {
+            for (int i = 1; i < w+1; i++) {
+                if (i-wt[j-1] >=0){
+                    dp[j][i] = Math.max(val[j-1]+dp[j-1][i-wt[j-1]], dp[j-1][i]);
+                }
+                else 
+                    dp[j][i] = dp[j-1][i];
+            }
         }
-        else{//not take coz the wt of curr elem doesnt fit KS capacity
-            return dp[w][idx] = ks(w, wt, val, n, idx+1, dp);
-        }
+        return dp[n][w];
     }
 }
 
