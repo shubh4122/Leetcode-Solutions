@@ -47,13 +47,23 @@ class Solution
 { 
     static void reverse(Stack<Integer> s)
     {
-        ArrayList<Integer> a = new ArrayList<>();
+        if(s.isEmpty())
+            return;
+            
+        int temp = s.pop();
+        reverse(s);//reverse remaining stack
         
-        while(!s.isEmpty()){
-            a.add(s.pop());
+        popReversedStackAndInsertTemp(s, temp);
+    }
+    
+    static void popReversedStackAndInsertTemp(Stack<Integer> s, int temp){
+        if(s.isEmpty()){
+            s.push(temp);
+            return;   
         }
-        
-        for(int n : a)
-            s.push(n);
+            
+        int t = s.pop();
+        popReversedStackAndInsertTemp(s, temp);
+        s.push(t);
     }
 }
