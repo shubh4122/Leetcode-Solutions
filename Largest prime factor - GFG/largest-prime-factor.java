@@ -24,39 +24,62 @@ class GFG
 
 //User function Template for Java
 
+
+//BETTER
 class Solution{
-    
-    //O(n) approach
     static long largestPrimeFactor(int N) {
         // code here
-        int maxPf = 0;
-        if(isPrime(N))
-            return N;
-        
-        for(int i = 2; i <= Math.sqrt(N); i++){
-            if(N%i == 0) {
-                //then Factors of N are:
-                // int factor1 = i;
-                int factor2 = N/i;
+        for(int i=2; i*i<=N; i++){
+            if(N%i==0){
+                N =N/i;
+                i--;
                 
-                if(isPrime(factor2))
-                    return factor2;
-                    
-                else if(isPrime(i)) {
-                    maxPf = Math.max(maxPf, i);
-                }
             }
+            
+            
         }
-        return maxPf;
+        long ans =N;
+        return ans;
     }
-    
-    static boolean isPrime(int n){
-        for(int i = 2; i <= Math.sqrt(n); i++){
-            if(n%i == 0)
-            return false;
-        }
-        return true;
-    }
-    
-    
 }
+
+
+
+//MY
+
+// class Solution{
+    
+//     //O(n) approach
+//     static long largestPrimeFactor(int N) {
+//         // code here
+//         int maxPf = 0;
+//         if(isPrime(N))
+//             return N;
+        
+//         for(int i = 2; i <= Math.sqrt(N); i++){
+//             if(N%i == 0) {
+//                 //then Factors of N are:
+//                 // int factor1 = i;
+//                 int factor2 = N/i;
+                
+//                 if(isPrime(factor2))
+//                     return factor2;
+                    
+//                 else if(isPrime(i)) {
+//                     maxPf = Math.max(maxPf, i);
+//                 }
+//             }
+//         }
+//         return maxPf;
+//     }
+    
+//     static boolean isPrime(int n){
+//         for(int i = 2; i <= Math.sqrt(n); i++){
+//             if(n%i == 0)
+//             return false;
+//         }
+//         return true;
+//     }
+    
+    
+// }
