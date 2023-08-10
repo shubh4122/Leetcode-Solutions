@@ -25,39 +25,33 @@ class GfG {
 // User function Template for Java
 
 class Solution {
-    public long count(int coins[], int n, int sum) {
+    long[][] dp;
+    public long count(int coins[], int N, int sum) {
         // code here.
-        long[][] dpMem = new long[n+1][sum+1];
-        for (int i = 0; i < dpMem.length; i++)
-            Arrays.fill(dpMem[i], -1l);
-            
-        return coinChange1(coins, n, sum, dpMem);
+        dp = new long[N+1][sum+1];
+        for(long[] row : dp)
+            Arrays.fill(row, -1);
+        return countWays(coins, N, sum);
     }
     
-    public long coinChange1(int[] coins, int n, int sum, long[][] dpMem) { //Max no. of ways
-        //same as countSubsets--> with given sum. Just that it'll be unbounded here
-        //BC
-        // if (sum == 0) return 1; // Empty set. i.e. No coins can sum upto 0
-        // if (n == 0)   return 0; // this will execute when sum != 0
-
+    public long countWays(int coins[], int n, int sum) {
+        if(sum==0)
+            return 1;//take no elem. this is 1 way
         
-        if (n == 0 && sum != 0) return 0; // Empty set. i.e. No coins can sum upto 0
-        if (n == 0 && sum == 0)   return 1;
-
-        //Memoization
-        if (dpMem[n][sum] != -1l)
-            return dpMem[n][sum];
-
-        //Main Code - Choice Diagram
-        if (coins[n-1] <= sum)
-            //return Take(don't decrease coin array size coz UNBOUNDED, i.e. pass call(n) and not n-1) + Not take
-            return dpMem[n][sum] = (coinChange1(coins, n, sum - coins[n-1], dpMem) + coinChange1(coins, n-1, sum, dpMem));
-
-        else
-            return dpMem[n][sum] = coinChange1(coins, n-1, sum, dpMem);
-    }
-    
-    public static int mod1000000007(long n) {
-        return (int)(n%(1e9+7));
+        if(n==0)
+            return 0;//ways
+        
+        if(dp[n][sum]!= -1)
+            return dp[n][sum];
+            
+        if(sum - coins[n-1]>= 0){
+            long t = countWays(coins, n, sum-coins[n-1]);
+            long nt = countWays(coins, n-1, sum);
+            
+            return dp[n][sum] = t+nt;
+        }
+        else{
+            return dp[n][sum] = countWays(coins, n-1, sum);
+        }
     }
 }
