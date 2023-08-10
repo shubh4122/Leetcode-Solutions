@@ -1,41 +1,20 @@
 # Coin Change
 ## Medium
-<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an integer&nbsp;array <strong>coins[ ] of size N&nbsp;</strong>representing different denominations of currency and an integer <strong>sum</strong>, find the number of ways you can make <strong>sum</strong> by using different combinations from coins[ ]. &nbsp;<br>
-Note: Assume that you have an infinite supply of each type of coin.&nbsp; </span></p>
-
-<p><br>
-<span style="font-size:18px"><strong>Example 1:</strong></span></p>
-
-<pre><span style="font-size:18px"><strong>Input:</strong>
-sum = 4 , 
-N = 3
-coins[] = {1,2,3}
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given an integer&nbsp;array <strong>coins[ ] </strong>of size<strong> N&nbsp;</strong>representing different denominations of currency and an integer <strong>sum</strong>, find the number of ways you can make <strong>sum</strong> by using different combinations from coins[ ]. &nbsp;<br><strong>Note:</strong> Assume that you have an infinite supply of each type of coin. And you can use any coin as many times as you want.</span></p>
+<p><span style="font-size: 18px;"><strong>Example 1:</strong></span></p>
+<div class="pieces-code-wrapper" style="text-align: left; margin-top: 10px;"><pre style="margin-bottom: 0px; margin-top: 0px;"><span style="font-size: 18px;"><strong>Input:</strong>
+N = 3, sum = 4
+coins = {1,2,3}
 <strong>Output:</strong> 4
-<strong>Explanation</strong>: Four Possible ways are:
-{1,1,1,1},{1,1,2},{2,2},{1,3}.</span>
-</pre>
-
-<p><span style="font-size:18px"><strong>Example 2:</strong></span></p>
-
-<pre><span style="font-size:18px"><strong>Input</strong>:
-Sum = 10 , 
-N = 4
-coins[] ={2,5,3,6}
+<strong>Explanation</strong>: Four Possible ways are: {1,1,1,1},{1,1,2},{2,2},{1,3}.</span>
+</pre><div class="pieces-btn-wrapper" style="border: none; display: flex; opacity: 0; width: auto; transition: opacity 0.3s ease-out 0s; height: 26px; margin-top: 10px; margin-bottom: 10px;"><button class="pieces-btn pieces-copy-and-save" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255);"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Copy and Save</span></button><button class="pieces-btn pieces-share" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255);"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/link.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Share</span></button></div></div>
+<p><span style="font-size: 18px;"><strong>Example 2:</strong></span></p>
+<div class="pieces-code-wrapper" style="text-align: left; margin-top: 10px;"><pre style="margin-bottom: 0px; margin-top: 0px;"><span style="font-size: 18px;"><strong>Input</strong>:
+N = 4, Sum = 10
+coins = {2,5,3,6}
 <strong>Output:</strong> 5
-<strong>Explanation</strong>: Five Possible ways are:
-{2,2,2,2,2}, {2,2,3,3}, {2,2,6}, {2,3,5} 
-and {5,5}.
-</span></pre>
-
-<p><br>
-<span style="font-size:18px"><strong>Your Task:</strong><br>
-You don't need to read input or print anything. Your task is to complete the function&nbsp;<strong>count()&nbsp;</strong>which accepts an array coins<strong>[ ] its size N&nbsp;and sum</strong>&nbsp;as input parameters and returns the number of ways to make change for given sum of money.&nbsp;</span></p>
-
-<p><br>
-<span style="font-size:18px"><strong>Expected Time Complexity:&nbsp;</strong>O(sum*N)<br>
-<strong>Expected Auxiliary Space:&nbsp;</strong>O(sum)</span></p>
-
-<p><br>
-<span style="font-size:18px"><strong>Constraints:</strong><br>
-1 &lt;= sum, N&nbsp;&lt;= 10<sup>3</sup></span></p>
-</div>
+<strong>Explanation</strong>: Five Possible ways are: {2,2,2,2,2}, {2,2,3,3}, {2,2,6}, {2,3,5} and {5,5}.
+</span></pre><div class="pieces-btn-wrapper" style="border: none; display: flex; opacity: 0; width: auto; transition: opacity 0.3s ease-out 0s; height: 26px; margin-top: 10px; margin-bottom: 10px;"><button class="pieces-btn pieces-copy-and-save" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255);"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Copy and Save</span></button><button class="pieces-btn pieces-share" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255); opacity: 1;"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/link.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Share</span></button></div></div>
+<p><span style="font-size: 18px;"><strong>Your Task:</strong><br>You don't need to read input or print anything. Your task is to complete the function&nbsp;<strong>count()&nbsp;</strong>which accepts an array <strong>coins </strong>its size<strong> N </strong>and<strong> sum</strong>&nbsp;as input parameters and returns the number of ways to make change for given sum of money.&nbsp;</span></p>
+<p><span style="font-size: 18px;"><strong>Expected Time Complexity: </strong>O(sum*N)<br><strong>Expected Auxiliary Space:&nbsp;</strong>O(sum)</span></p>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 &lt;= sum, N, coins[i] &lt;= 10<sup>3</sup></span></p></div>
