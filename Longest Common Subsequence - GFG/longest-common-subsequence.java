@@ -26,32 +26,31 @@ class GFG {
 
 class Solution
 {
-    //Function to find the length of longest common subsequence in two strings.
-    static int lcs(int lx, int ly, String x, String y)
+    static int lcs(int x, int y, String s1, String s2)
     {
-        // your code here
-        return lcs1(lx, ly, x, y);
+        int[][] dp = new int[x+1][y+1];
+        for(int[] row: dp)
+            Arrays.fill(row, -1);
+        
+        return lcs1(x, y, s1, s2, dp);       
+    }
+        
+    
+    //Function to find the length of longest common subsequence in two strings.
+    static int lcs1(int x, int y, String s1, String s2, int dp[][])
+    {
+        if(x == 0 || y == 0)
+            return 0;
+            
+        if(dp[x][y] != -1)
+            return dp[x][y];
+            
+        if(s1.charAt(x-1) == s2.charAt(y-1)){
+            return dp[x][y]=1+lcs1(x-1, y-1, s1, s2, dp);
+        }
+        else{
+            return dp[x][y]=Math.max(lcs1(x-1, y, s1, s2, dp), lcs1(x, y-1, s1, s2, dp));
+        }
     }
     
-    public static int lcs1(int lx, int ly, String x, String y) {
-//table
-        int[][] dp = new int[lx+1][ly+1];
-
-        //Initialization
-        Arrays.fill(dp[0], 0);
-        for (int i = 0; i < lx + 1; i++)
-            dp[i][0] = 0;
-
-        //Choice Diagram
-        for (int i = 1; i < lx + 1; i++) {
-            for (int j = 1; j < ly + 1; j++) {
-                if (x.charAt(i - 1) == y.charAt(j - 1))
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                else //last char doesn't matches
-                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
-            }
-        }
-        
-        return dp[lx][ly];
-    }
 }
