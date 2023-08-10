@@ -1,35 +1,21 @@
 # Longest Common Subsequence
 ## Medium
-<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given two sequences, find the length of longest subsequence present in both of them. Both&nbsp;the strings are of uppercase.</span></p>
-
-<p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
-
-<pre><span style="font-size:18px"><strong>Input:
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given two strings, find the length of longest subsequence present in both of them. Both the strings are in <strong>uppercase </strong>latin alphabets.</span></p>
+<p><span style="font-size: 18px;"><strong>Example 1:</strong></span></p>
+<div class="pieces-code-wrapper" style="text-align: left; margin-top: 10px;"><pre style="margin-bottom: 0px; margin-top: 0px;"><span style="font-size: 18px;"><strong>Input:
 </strong>A = 6, B = 6
 str1 = ABCDGH
 str2 = AEDFHR
 <strong>Output: </strong>3<strong>
-Explanation: </strong>LCS for input Sequences
-“ABCDGH” and “AEDFHR” is “ADH” of
-length 3.</span>
-</pre>
-
-<p><span style="font-size:18px"><strong>Example 2:</strong></span></p>
-
-<pre><span style="font-size:18px"><strong>Input:
+Explanation: </strong>LCS for input strings “ABCDGH” and “AEDFHR” is “ADH” of length 3.</span>
+</pre><div class="pieces-btn-wrapper" style="border: none; display: flex; opacity: 0; width: auto; transition: opacity 0.3s ease-out 0s; height: 26px; margin-top: 10px; margin-bottom: 10px;"><button class="pieces-btn pieces-copy-and-save" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255);"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Copy and Save</span></button><button class="pieces-btn pieces-share" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255);"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/link.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Share</span></button></div></div>
+<p><span style="font-size: 18px;"><strong>Example 2:</strong></span></p>
+<div class="pieces-code-wrapper" style="text-align: left; margin-top: 10px;"><pre style="margin-bottom: 0px; margin-top: 0px;"><span style="font-size: 18px;"><strong>Input:
 </strong>A = 3, B = 2
 str1 = ABC
 str2 = AC
 <strong>Output: </strong>2<strong>
-Explanation: </strong>LCS of "ABC" and "AC" is
-"AC" of length 2.</span></pre>
-
-<p><span style="font-size:18px"><strong>Your Task:</strong><br>
-Complete the function&nbsp;<strong>lcs()</strong>&nbsp;which takes the length of two strings respectively and two strings as input parameters&nbsp;and returns the&nbsp;length of the longest subsequence present in both of them. </span></p>
-
-<p><span style="font-size:18px"><strong>Expected Time Complexity</strong> : O(|str1|*|str2|)<br>
-<strong>Expected Auxiliary Space</strong>: O(|str1|*|str2|)</span></p>
-
-<p><span style="font-size:18px"><strong>Constraints:</strong><br>
-1&lt;=size(str1),size(str2)&lt;=10<sup>3</sup></span></p>
-</div>
+Explanation: </strong>LCS of "ABC" and "AC" is "AC" of length 2.</span></pre><div class="pieces-btn-wrapper" style="border: none; display: flex; opacity: 0; width: auto; transition: opacity 0.3s ease-out 0s; height: 26px; margin-top: 10px; margin-bottom: 10px;"><button class="pieces-btn pieces-copy-and-save" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255);"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Copy and Save</span></button><button class="pieces-btn pieces-share" style="width: auto; font-size: 12px; border: 1px solid rgb(33, 33, 33); border-radius: 16px; margin-right: 4px; padding: 4px 6px 4px 4px; line-height: normal; height: fit-content; cursor: pointer; user-select: none; display: flex; align-items: center; background-color: rgb(33, 33, 33); color: rgb(255, 255, 255);"><img src="https://storage.googleapis.com/pieces-web-extensions-cdn/link.png" class="pieces-logo" style="margin: 0px 4px 0px 0px; border-radius: 50%; filter: none; float: left; width: 16px; height: 16px;"><span class="pieces-btn-text">Share</span></button></div></div>
+<p><span style="font-size: 18px;"><strong>Your Task:</strong><br>Complete the function&nbsp;<strong>lcs()</strong>&nbsp;which takes the length of two strings respectively and two strings as input parameters&nbsp;and returns the&nbsp;length of the longest subsequence present in both of them. </span></p>
+<p><span style="font-size: 18px;"><strong>Expected Time Complexity</strong> : O(|str1|*|str2|)<br><strong>Expected Auxiliary Space</strong>: O(|str1|*|str2|)</span></p>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1&lt;=size(str1),size(str2)&lt;=10<sup>3</sup></span></p></div>
