@@ -39,38 +39,68 @@ class GFG{
 
 class Solution 
 {
-    //Function to find length of longest increasing subsequence.
-    static int longestSubsequence(int size, int nums[])
-    {
-        //intuition in notes.
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int num : nums) {
-            if (temp.isEmpty() || temp.get(temp.size() - 1) < num)
-                temp.add(num);
-            else {
-                //binary search. - coz the array is sorted by default!
-                int insertAt = binarySearch(temp, num);
-                temp.set(insertAt, num);
-            }
+    
+    static int longestSubsequence(int size, int a[]) {
+        ArrayList<Integer> l = new ArrayList<>();
+        
+        for(int i = 0; i < size; i++){
+            int idx = bs(l, l.size(), a[i]);
+            if(idx == -1)
+                l.add(a[i]);
+            else
+                l.set(idx, a[i]);
         }
-        return temp.size();
+        return l.size();
     }
     
-    private static int binarySearch(ArrayList<Integer> temp, int num) {
-        int s = 0, e = temp.size()-1;
-
-        while (s <= e){
-            int mid = s + (e-s)/2;
-
-            if (temp.get(mid) == num)
-                return mid;
-
-            else if (temp.get(mid) < num)
-                s = mid + 1;
-
-            else
+    static int bs(ArrayList<Integer> l, int size, int key) {
+        int s = 0, e = size-1;
+        int ans = -1;
+        
+        while(s<= e) {
+            int mid = s+(e-s)/2;
+            if(l.get(mid) >= key){
+                ans = mid;
                 e = mid - 1;
+            }
+            else
+                s = mid+1;
+                
         }
-        return e+1;
+        return ans;
     }
+    
+    
+    //DP will not work due to constraints.!
+    // static int[] a; 
+    // static int[][] dp;
+    // static int longestSubsequence(int size, int ar[])
+    // {
+    //     a = ar;
+    //     dp = new int[size+1][size+1];
+    //     for(int[] row : dp)
+    //         Arrays.fill(row, -1);
+            
+    //     return lis(0, -1);
+    // }
+    
+    // //coordinate change
+    // static int lis(int i, int lisTopIdx) {
+    //     if(i == a.length)
+    //         return 0;
+            
+    //     if(dp[lisTopIdx+1][i]!=-1)
+    //         return dp[lisTopIdx+1][i];
+            
+    //     if(lisTopIdx == -1 || a[lisTopIdx] < a[i]) {
+    //         //T or NT
+    //         int take = 1+lis(i+1, i);
+    //         int notTake = lis(i+1, lisTopIdx);
+            
+    //         return dp[lisTopIdx+1][i] = Math.max(take, notTake);
+    //     }
+    //     else{
+    //         return dp[lisTopIdx+1][i] = lis(i+1, lisTopIdx);
+    //     }
+    // }
 } 
