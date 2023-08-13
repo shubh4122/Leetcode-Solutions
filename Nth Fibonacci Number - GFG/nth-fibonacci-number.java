@@ -22,7 +22,7 @@ class GFG {
 
 //User function Template for Java
 class Solution {
-    //0 1 1 2 3 5 8 ...
+    //1 1 2 3 5 8 ...
     static int mod = 1000000007;
     static int nthFibonacci(int n){
         
