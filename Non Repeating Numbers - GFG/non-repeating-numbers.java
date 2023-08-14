@@ -66,7 +66,7 @@ class Solution
         int group1Xor = 0, group2Xor = 0;
         for (int n: nums) {
     //Step 3.a
-            if ((n & rightMostSetBit) != 0)
+            if ((n & rightMostSetBit) == 0)
                 group1Xor ^= n;
     //Step 3.b  
             else
