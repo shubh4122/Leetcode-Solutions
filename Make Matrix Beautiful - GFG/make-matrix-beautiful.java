@@ -68,6 +68,7 @@ class GFG {
 
 
 class Solution {
+    // https://practice.geeksforgeeks.org/problems/make-matrix-beautiful-1587115620/1
     public static int findMinOperation(int N, int[][] matrix) {
         // code here
         
