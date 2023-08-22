@@ -67,50 +67,32 @@ class GFG {
 
 
 
-
-
 class Solution {
+    // https://practice.geeksforgeeks.org/problems/make-matrix-beautiful-1587115620/1
     public static int findMinOperation(int N, int[][] matrix) {
         // code here
         
-        int maxSum = 0, sum = 0;
+        int[] rowSum = new int[N];
+        int[] colSum = new int[N];
+        //Finding maxSum among all rows and cols
+        int maxSum = 0, sumRow = 0, sumCol = 0;;
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
-                sum += matrix[i][j];
+                sumRow += matrix[i][j];
+                sumCol += matrix[j][i];
             }
-            maxSum = Math.max(maxSum, sum);
-            sum = 0;
+            rowSum[i] = sumRow;
+            colSum[i] = sumCol;
+            maxSum = Math.max(maxSum, Math.max(sumRow, sumCol));
+            sumRow = 0;
+            sumCol = 0;
         }
-        
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                sum += matrix[j][i];
-            }
-            maxSum = Math.max(maxSum, sum);
-            sum = 0;
-        }
-        // System.out.println(maxSum);
         
         int count = 0;
         for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                sum += matrix[i][j];
-            }
-            count += maxSum - sum;
-            // maxSum = Math.max(maxSum, sum);
-            sum = 0;
+            count += maxSum - rowSum[i];
+            count += maxSum - colSum[i];
         }
-        
-        // System.out.println(count);
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                sum += matrix[j][i];
-            }
-            count += maxSum - sum;
-            // maxSum = Math.max(maxSum, sum);
-            sum = 0;
-        }
-        // System.out.println(count);
         return count/2;
     }
 }
