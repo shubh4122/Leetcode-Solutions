@@ -71,6 +71,7 @@ class Solution {
     public static int findMinOperation(int N, int[][] matrix) {
         // code here
         
+        //Finding maxSum among all rows
         int maxSum = 0, sum = 0;
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
@@ -80,6 +81,7 @@ class Solution {
             sum = 0;
         }
         
+        //max sum among all cols
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
                 sum += matrix[j][i];
@@ -87,28 +89,25 @@ class Solution {
             maxSum = Math.max(maxSum, sum);
             sum = 0;
         }
-        // System.out.println(maxSum);
         
+        //counting no. of ops required for all rows to be equal to max sum
         int count = 0;
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
                 sum += matrix[i][j];
             }
             count += maxSum - sum;
-            // maxSum = Math.max(maxSum, sum);
             sum = 0;
         }
         
-        // System.out.println(count);
+        //counting no. of ops for all cols
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
                 sum += matrix[j][i];
             }
             count += maxSum - sum;
-            // maxSum = Math.max(maxSum, sum);
             sum = 0;
         }
-        // System.out.println(count);
         return count/2;
     }
 }
