@@ -71,42 +71,26 @@ class Solution {
     public static int findMinOperation(int N, int[][] matrix) {
         // code here
         
-        //Finding maxSum among all rows
-        int maxSum = 0, sum = 0;
+        int[] rowSum = new int[N];
+        int[] colSum = new int[N];
+        //Finding maxSum among all rows and cols
+        int maxSum = 0, sumRow = 0, sumCol = 0;;
         for(int i = 0; i < N; i++){
             for(int j = 0; j < N; j++){
-                sum += matrix[i][j];
+                sumRow += matrix[i][j];
+                sumCol += matrix[j][i];
             }
-            maxSum = Math.max(maxSum, sum);
-            sum = 0;
+            rowSum[i] = sumRow;
+            colSum[i] = sumCol;
+            maxSum = Math.max(maxSum, Math.max(sumRow, sumCol));
+            sumRow = 0;
+            sumCol = 0;
         }
         
-        //max sum among all cols
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                sum += matrix[j][i];
-            }
-            maxSum = Math.max(maxSum, sum);
-            sum = 0;
-        }
-        
-        //counting no. of ops required for all rows to be equal to max sum
         int count = 0;
         for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                sum += matrix[i][j];
-            }
-            count += maxSum - sum;
-            sum = 0;
-        }
-        
-        //counting no. of ops for all cols
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                sum += matrix[j][i];
-            }
-            count += maxSum - sum;
-            sum = 0;
+            count += maxSum - rowSum[i];
+            count += maxSum - colSum[i];
         }
         return count/2;
     }
