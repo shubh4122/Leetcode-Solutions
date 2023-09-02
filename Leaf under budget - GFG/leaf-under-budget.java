@@ -112,39 +112,36 @@ class Node {
 }
 */
 class Solution{
-    //BFS
+    //DFS
+    List<Integer> costs;
     public int getCount(Node node, int bud) {
-        Queue<Node> q = new LinkedList<>();
-        q.add(node);
-        q.add(null);
-        int level = 1;//curr level is null
-        int totalCost = 0;
-        int countLeafNodesUnderBudget=0;
-
-        while (!q.isEmpty()) {
-            Node pop = q.remove();
-
-            if (pop == null) {
-                level++;
-                if (!q.isEmpty())
-                    q.add(null);
+        costs = new ArrayList<>();
+        dfs(node, 1);
+        Collections.sort(costs);
+        
+        int countLeafUnderBud = 0;
+        int cost = 0;
+        for (int n : costs) {
+            if (cost+n <= bud) {
+                cost += n;
+                countLeafUnderBud++;
             }
-            else{
-                //check if the popped node is leaf node.
-                if (pop.left == null && pop.right == null) {
-                    if (totalCost+level <= bud) {
-                        totalCost += level;
-                        countLeafNodesUnderBudget++;
-                    } else
-                        break;
-                } else {
-                    if (pop.left != null)
-                        q.add(pop.left);
-                    if (pop.right != null)
-                        q.add(pop.right);
-                }
+            else break;
+        }
+        return countLeafUnderBud;
+    }
+    
+    public void dfs(Node node, int cost){
+        if (node != null) {
+            if (node.left == null && node.right == null)//leaf node
+                costs.add(cost);
+            
+            else {
+                dfs(node.left, cost+1);
+                dfs(node.right, cost+1);
             }
         }
-        return countLeafNodesUnderBudget;
     }
+
+
 }
