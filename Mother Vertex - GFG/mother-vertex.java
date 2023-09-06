@@ -34,50 +34,34 @@ class GFG
 
 class Solution
 {
-    int count = 0;
     int topoSortStackTop = -1;
     public int findMotherVertex(int v, ArrayList<ArrayList<Integer>>adj) {
         boolean[] vis = new boolean[v];
 
         for (int i = 0; i < v; i++) {
             if (! vis[i]) {
-                count = 1;
-                topoSort(adj, vis, i);
+                topoSort(adj, vis, i);//doing topological sort.
             }
         }
-        // System.out.println(topoSortStackTop);
-        vis = new boolean[v];
-        visitAllNodes(adj, vis, topoSortStackTop);
-        // System.out.println(count);
-        if (count == v)
-            return topoSortStackTop;
-        
-        return -1;
+
+        vis = new boolean[v];//reinitialise vis array.
+        topoSort(adj, vis, topoSortStackTop);//check 1st elem of topological sort visits all nodes
+
+        for (boolean visited : vis) {//if vis array is completely TRUE, i.e. all nodes visited. return ans
+            if (!visited)
+                return -1;
+        }
+        return topoSortStackTop;
     }
 
     private void topoSort(ArrayList<ArrayList<Integer>> graph, boolean[] vis, int src) {
         if (vis[src])
             return;
-        
+
         vis[src] = true;
         for (int adj : graph.get(src)) {
             topoSort(graph, vis, adj);
         }
         topoSortStackTop = src;
-    }
-
-    private void visitAllNodes(ArrayList<ArrayList<Integer>> graph, boolean[] vis, int src) {
-        if (src == -1)
-            return;
-        
-        if (! vis[src]) {
-            vis[src] = true;
-            for (int adjNode : graph.get(src)) {
-                if (!vis[adjNode]) {
-                    count++;
-                    visitAllNodes(graph, vis, adjNode);
-                }
-            }
-        }
     }
 }
