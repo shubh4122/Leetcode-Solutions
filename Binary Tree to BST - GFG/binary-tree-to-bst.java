@@ -126,6 +126,8 @@ class Solution
        
        inorder(root, nodes);
        Collections.sort(nodes);
+       //The trick, i havent written the complex code like in Unique BST to make BST.
+       //I simply made a right skewed BST
        return makeBst(nodes);
     }
     
