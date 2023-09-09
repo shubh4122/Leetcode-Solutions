@@ -116,27 +116,23 @@ class Node
 */
 class Solution
 {
-    //m1: inorder -> kth elem
-    // return the Kth largest element in the given BST rooted at 'root'
     int count = 0;
-    int ans = -1;
-    public int kthLargest(Node root,int k)
-    {
-        fun(root, k);
+    int ans = -1;//in interview, Don't use global vars. instead do: ans[1], count[1] and pass them in parameters
+    public int kthLargest(Node root, int k) {
+        reversedInorder(root, k);
         return ans;
     }
-    
-    private void fun(Node root, int k) {
-        if(root == null)
-        return;
-        
-        fun(root.right, k);
-        count++;
-        if(count == k){
+
+    private void reversedInorder(Node root, int k) {
+        if (root == null)
+            return;
+
+        reversedInorder(root.right, k);//right
+        count++;//root
+        if (count == k) {
             ans = root.data;
-            return ;
+            return;
         }
-            
-        fun(root.left, k);
+        reversedInorder(root.left, k);//left
     }
 }
