@@ -1,7 +1,7 @@
 # Kth largest element in BST
 ## Easy
 <div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given a <strong>Binary Search Tree</strong>. Your task is to complete the function which will return the <strong>Kth largest</strong> element without doing any modification in Binary Search Tree.</span></p>
-<p><span style="font-size: 18px;"><strong>Example 1:</strong></span></p>
+
 <pre><span style="font-size: 18px;"><strong>Input:
 &nbsp;     4</strong>
 &nbsp;   /   \
@@ -9,7 +9,7 @@
 k = 2<strong> 
 Output: </strong>4
 </span></pre>
-<p><span style="font-size: 18px;"><strong>Example 2:</strong></span></p>
+
 <pre><span style="font-size: 18px;"><strong>Input:
 </strong>&nbsp; &nbsp; &nbsp; &nbsp;9
 &nbsp; &nbsp; &nbsp;&nbsp;  \&nbsp;
