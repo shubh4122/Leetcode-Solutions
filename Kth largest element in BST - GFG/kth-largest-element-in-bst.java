@@ -116,23 +116,27 @@ class Node
 */
 class Solution
 {
-    int counter = 0;
+    //m1: inorder -> kth elem
     // return the Kth largest element in the given BST rooted at 'root'
+    int count = 0;
+    int ans = -1;
     public int kthLargest(Node root,int k)
     {
-        if (root == null)
-            return -1;
-
-        int ans = kthLargest(root.right, k);
-        //i.e. if we havent still found the kTH element, only then we run below code
-        if (ans == -1) {
-            counter++;
-            if (k == counter)
-                return root.data;
-
-            ans = kthLargest(root.left, k);
-        }
-
+        fun(root, k);
         return ans;
+    }
+    
+    private void fun(Node root, int k) {
+        if(root == null)
+        return;
+        
+        fun(root.right, k);
+        count++;
+        if(count == k){
+            ans = root.data;
+            return ;
+        }
+            
+        fun(root.left, k);
     }
 }
