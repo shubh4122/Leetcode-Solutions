@@ -26,33 +26,34 @@ class GfG
 
 
 class Solution{
-
+    
+    int mod = (int)1e9 + 7;
+    Integer[][] dp;
 	public int perfectSum(int arr[],int n, int sum) 
 	{ 
 	    // Your code goes here
-	    int[][] dp = new int[n+1][sum+1];
-        //BC
-        Arrays.fill(dp[0], 0);
-        dp[0][0] = 1;
-
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 0; j < sum + 1; j++) {
-                if (arr[i-1] <= j)
-                    //count of subsets equal to given sum, when including (n-1)th item in arr
-                    //+
-                    // count of subsets whose sum = given sum, when not including (n-t)th elem
-                    dp[i][j] = mod1000000007(dp[i-1][j - arr[i-1]] + dp[i-1][j]);
-
-                else    dp[i][j] = dp[i-1][j];
-
-            }
+	    dp = new Integer[n+1][sum+1];
+	    return f(arr, 0, sum);
+	}
+	
+	private int f(int[] arr, int i, int sum) {
+	    if(i == arr.length){//necessary as there might be 0s ahead, and will add to our subset
+    	    if(sum == 0)    
+    	        return 1;
+    	        
+	        return 0;
+	    }
+	    
+	    if(dp[i][sum]!=null)
+	        return dp[i][sum];
+	        
+        if(sum - arr[i] >= 0) {
+            int take = f(arr, i+1, sum - arr[i]);
+            int nt = f(arr, i+1, sum);
+            
+            return dp[i][sum] = (take%mod + nt%mod)%mod;
         }
-
-        return dp[n][sum];
-	} 
-	
-	
-    public static int mod1000000007(long n) {
-        return (int)(n%(1e9+7));
-    }
+        else
+            return dp[i][sum] = f(arr, i+1, sum)%mod;
+	}
 }
