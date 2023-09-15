@@ -55,13 +55,11 @@ class Solution {
                     baseI = i;
                     baseJ = j;
                     dfsDistinctIsland(grid, i, j);
-                    if (! set.contains(shape))
-                        islandCount++;
                     set.add(shape);
                 }
             }
         }
-        return islandCount;
+        return set.size();
     }
 
     //basically this functions SINKS the visited islands.
