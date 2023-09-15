@@ -31,37 +31,43 @@ class GFG{
 // User function Template for Java
 
 class Solution{
-    static int equalPartition(int n, int arr[])
+    
+    
+    static int equalPartition(int N, int arr[])
     {
         // code here
-        //Return 1. For true.
-        //Step 1: Find Total sum of arr
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += arr[i];
+        int sum =0;
+        for(int i = 0; i < N; i++){
+            sum+=arr[i];
         }
-
-        //Step 2: If sum - Odd, then no partition can be done, If Even - partition MAY BE possible
-        if (sum%2 != 0) //odd sum
-            return 0;   //Partition NOT possible
-
-        //Step 3: Now Start DP.
-        boolean[][] dp = new boolean[n+1][(sum/2)+1];
-        //Initialization
-        Arrays.fill(dp[0], false);//row0 filled
-        for (int i = 0; i < n + 1; i++)
-            dp[i][0] = true; // col0 filled
-
-        //Choice Diag code ----------_ BE VERY CAREFULLLLL!!!!  i and j start from 1 !!!!!!!!!!!!!!
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < (sum / 2) + 1; j++) {
-                if (arr[i-1] <= j)
-                    dp[i][j] = dp[i-1][j - arr[i-1]] || dp[i-1][j];
-
-                else
-                    dp[i][j] = dp[i-1][j];
-            }
+        
+        if(sum%2 != 0)
+            return 0;
+        
+        Boolean[][] dp;
+        dp = new Boolean[N+1][sum/2+1];
+        boolean ans = findSubset(arr, sum/2, 0, dp);
+        return ans?1:0;
+    }
+    
+    static boolean findSubset(int[] arr, int sum, int i, Boolean[][] dp) {
+        if(sum == 0)
+            return true;
+            
+        if(i==arr.length)
+            return false;
+            
+            
+        if(dp[i][sum] != null)
+            return dp[i][sum];
+            
+        if(sum-arr[i] >=0 ){
+            boolean t = findSubset(arr, sum-arr[i], i+1, dp);
+            boolean nt = findSubset(arr, sum, i+1, dp);
+            
+            return dp[i][sum] = t || nt;
         }
-        return dp[n][sum/2] ? 1 : 0;
+        else
+            return dp[i][sum] = findSubset(arr, sum, i+1, dp);
     }
 }
